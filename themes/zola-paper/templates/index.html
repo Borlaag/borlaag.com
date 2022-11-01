@@ -6,13 +6,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow, nosnippet">
-    <link rel="icon" href="/images/favicon.svg">
+    <link rel="icon" href="{{ get_url(path="/images/favicon.svg", trailing_slash=false) }}">
 
     <title>{% if page.title %}{{ config.title }} &middot; {{ page.title }}{% else %}{{ config.title }}{% endif %}</title>
 
-    <link rel="preload" href="/fonts/Inter.var.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/fonts/FiraCodeVariable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/main.css">
+    <link rel="preload" href="{{ get_url(path="/fonts/Inter.var.woff2", trailing_slash=false) }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ get_url(path="/fonts/FiraCodeVariable.woff2", trailing_slash=false) }}" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="{{ get_url(path="main.css", trailing_slash=false) }}">
   </head>
 
   {% if page %}<body class="single">{% else %}<body class="list">{% endif %}
@@ -68,7 +68,7 @@
       <span>&middot;</span>
       No data-collection or analytics
       <span>&middot;</span>
-      <span><a href="/hello-world#licenses" rel="noopener" target="_blank">Refer to this post️ for license info</a></span>
+      <span><a href="{{ get_url(path="/hello-world#licenses", trailing_slash=false) }}" rel="noopener" target="_blank">Refer to this post️ for license info</a></span>
       <span></span>
     </footer>
     {% endblock body %}
