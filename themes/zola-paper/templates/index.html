@@ -1,0 +1,76 @@
+{% import "post_macros.html" as post_macros %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, nosnippet">
+    <link rel="icon" href="/images/favicon.svg">
+
+    <title>{% if page.title %}{{ config.title }} &middot; {{ page.title }}{% else %}{{ config.title }}{% endif %}</title>
+
+    <link rel="preload" href="/fonts/Inter.var.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/FiraCodeVariable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="{{ get_url(path="main.css", trailing_slash=false) }}">
+  </head>
+
+  {% if page %}<body class="single">{% else %}<body class="list">{% endif %}
+
+    {% block body %}
+    <header class="header">
+      <nav class="nav">
+        {% if page %}
+        <p class="logo"><a href="{{ get_url(path="", trailing_slash=false ) }}">{{ config.title }}</a></p>
+        {% else %}
+        <h1 class="logo"><a href="{{ get_url(path="", trailing_slash=false ) }}">{{ config.title }}</a></h1>
+        {% endif %}
+        <ul class="menu">
+          {% block sidebar_nav %}{% for link in config.extra.links %}
+          <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+          {% endfor %}{% endblock sidebar_nav %}
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main">
+      {% block content %}
+      <div class="posts">
+        {% set is_first_page = true %}
+        {% if paginator is defined %}
+        {% set pages = paginator.pages %}
+        {% set is_first_page = paginator.current_index == 1 %}
+        {% elif section is defined %}
+        {% set pages = section.pages %}
+        {% endif %}
+        {% for page in pages %}
+        {% if page.hidden  %}
+
+        {% elif loop.index == 1 and is_first_page %}
+        <article class="first-entry">{% else %}<article class="post-entry">{% endif %}
+            {{ post_macros::page_in_list(page=page)}}
+          </article>
+          {% endfor %}
+          {% if paginator is defined %}
+          <footer class="page-footer">
+            <nav class="pagination">
+              {% if paginator.previous %}<a class="prev" href="{{ paginator.previous }}">← Previous</a>{% else %}<!--Hidden Previous-Button-->{% endif %}
+              {% if paginator.next %}<a class="next" href="{{ paginator.next }}">Next →</a>{% else %}<!--Hidden Next-Button-->{% endif %}
+            </nav>
+          </footer>
+          {% endif %}
+      </div>
+      {% endblock content %}
+    </main>
+
+    <footer class="footer">
+      <span>&copy; {{ now() | date(format="%Y") }} <a href="{{ get_url(path="", trailing_slash=false ) }}">{{ config.title }}</a></span>
+      <span>&middot;</span>
+      No data-collection or analytics
+      <span>&middot;</span>
+      <span><a href="/hello-world#licenses" rel="noopener" target="_blank">Refer to this post️ for license info</a></span>
+      <span></span>
+    </footer>
+    {% endblock body %}
+  </body>
+</html>

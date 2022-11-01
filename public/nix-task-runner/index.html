@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, nosnippet">
+    <link rel="icon" href="/images/favicon.svg">
+
+    <title>Børlaag &middot; A Nix-ified Task Runner</title>
+
+    <link rel="preload" href="/fonts/Inter.var.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/FiraCodeVariable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="https://Borlaag.com/main.css">
+  </head>
+
+  <body class="single">
+
+    
+    <header class="header">
+      <nav class="nav">
+        
+        <p class="logo"><a href="https://Borlaag.com">Børlaag</a></p>
+        
+        <ul class="menu">
+          
+          <li><a href="https:&#x2F;&#x2F;github.com&#x2F;Borlaag">GitHub</a></li>
+          
+          <li><a href="https:&#x2F;&#x2F;twitter.com&#x2F;Borlaag">Twitter</a></li>
+          
+          <li><a href="https:&#x2F;&#x2F;matrix.to&#x2F;#&#x2F;@borlaag:matrix.org">Matrix</a></li>
+          
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main">
+      
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">A Nix-ified Task Runner</h1>
+    <div class="post-meta">
+      <span class="post-date"><time>October 30, 2022</time></span>
+    </div>
+  </header>
+  <div class="post-content"><p>Nix is my preferred tool for declarative and reproducible development environments for projects. Combined
+with <code>direnv</code>, all you have to do is change your directory and all depenencies are available.
+You still have to remember how to work in that project or read the <code>README.md</code> file.</p>
+<span id="continue-reading"></span>
+<p>Something I appreciate about <code>nix</code> is its agnostic approach, but I'd like to go a step further
+with convenience. An ideal workflow would be to <code>cd</code> into a project directory and run a single
+command to get a list of common tasks defined by the developer(s) of the project.
+People often use <code>Makefile</code>s for this, and I recently learned about <a href="https://github.com/casey/just"><code>just</code></a>.</p>
+<p>Instead of introducing a new syntax/DSL for tasks like 'run tests' or 'run integration tests',
+what if we defined the tasks inside a <code>flake.nix</code> using <code>nix</code> (the language)?</p>
+<pre data-lang="nix" style="background-color:#282a36;color:#f8f8f2;" class="language-nix "><code class="language-nix" data-lang="nix"><span>{
+</span><span>  </span><span style="color:#50fa7b;">description </span><span style="color:#ff79c6;">= </span><span style="color:#f1fa8c;">&quot;...&quot;</span><span>;
+</span><span>
+</span><span>  </span><span style="color:#50fa7b;">inputs </span><span style="color:#ff79c6;">= </span><span>{
+</span><span>    </span><span style="color:#50fa7b;">nixpkgs</span><span>.</span><span style="color:#50fa7b;">url </span><span style="color:#ff79c6;">= </span><span style="color:#f1fa8c;">&quot;github:NixOS/nixpkgs/nixos-unstable&quot;</span><span>;
+</span><span>    </span><span style="color:#50fa7b;">nix-tasks</span><span>.</span><span style="color:#50fa7b;">url </span><span style="color:#ff79c6;">= </span><span style="color:#f1fa8c;">&quot;github:Borlaag/nix-tasks&quot;</span><span>;
+</span><span>  };
+</span><span>
+</span><span>  </span><span style="color:#50fa7b;">outputs </span><span style="color:#ff79c6;">= </span><span style="font-style:italic;color:#ffb86c;">inputs</span><span>@{ </span><span style="font-style:italic;color:#ffb86c;">self</span><span style="color:#ff79c6;">, </span><span style="font-style:italic;color:#ffb86c;">nixpkgs</span><span style="color:#ff79c6;">, </span><span style="font-style:italic;color:#ffb86c;">nix-tasks</span><span style="color:#ff79c6;">, ... </span><span>}:
+</span><span>    </span><span style="color:#ff79c6;">let
+</span><span>      </span><span style="color:#6272a4;"># an example of a task, the command can be a multi-line string
+</span><span>      </span><span style="color:#6272a4;"># that is effectively just a bash script
+</span><span>      </span><span style="color:#50fa7b;">setup </span><span style="color:#ff79c6;">= </span><span>{
+</span><span>        </span><span style="color:#50fa7b;">name </span><span style="color:#ff79c6;">= </span><span style="color:#f1fa8c;">&quot;setup&quot;</span><span>;
+</span><span>        </span><span style="color:#50fa7b;">helpText </span><span style="color:#ff79c6;">= </span><span style="color:#f1fa8c;">&quot;setup the application and database&quot;</span><span>;
+</span><span>        </span><span style="color:#50fa7b;">command </span><span style="color:#ff79c6;">= </span><span style="color:#f1fa8c;">&quot;...&quot;</span><span>;
+</span><span>      };
+</span><span>      </span><span style="color:#50fa7b;">test </span><span style="color:#ff79c6;">= </span><span>{
+</span><span>        </span><span style="color:#50fa7b;">name </span><span style="color:#ff79c6;">= </span><span style="color:#f1fa8c;">&quot;test&quot;</span><span>;
+</span><span>        </span><span style="color:#50fa7b;">helpText </span><span style="color:#ff79c6;">= </span><span style="color:#f1fa8c;">&quot;run all unit tests for the project&quot;</span><span>;
+</span><span>        </span><span style="color:#50fa7b;">command </span><span style="color:#ff79c6;">= </span><span style="color:#f1fa8c;">&quot;...&quot;</span><span>;
+</span><span>      };
+</span><span>      </span><span style="color:#50fa7b;">test-integration </span><span style="color:#ff79c6;">= </span><span>{
+</span><span>        </span><span style="color:#50fa7b;">name </span><span style="color:#ff79c6;">= </span><span style="color:#f1fa8c;">&quot;test-integration&quot;</span><span>;
+</span><span>        </span><span style="color:#50fa7b;">helpText </span><span style="color:#ff79c6;">= </span><span style="color:#f1fa8c;">&quot;run integration tests&quot;</span><span>;
+</span><span>        </span><span style="color:#50fa7b;">command </span><span style="color:#ff79c6;">= </span><span style="color:#f1fa8c;">&quot;...&quot;</span><span>;
+</span><span>        </span><span style="color:#6272a4;"># having tasks depend on other tasks can be useful, and
+</span><span>        </span><span style="color:#6272a4;"># something other task runners generally support
+</span><span>        </span><span style="color:#50fa7b;">dependsOn </span><span style="color:#ff79c6;">= </span><span>[ </span><span style="color:#f1fa8c;">&quot;setup&quot; </span><span>];
+</span><span>      };
+</span><span>    </span><span style="color:#ff79c6;">in
+</span><span>      </span><span style="color:#6272a4;"># mkTasks is the nix side of this story, it creates a file in
+</span><span>      </span><span style="color:#6272a4;"># the nix store where each task is defined in a json file that
+</span><span>      </span><span style="color:#6272a4;"># our task runner binary can parse to display the help text
+</span><span>      </span><span style="color:#6272a4;"># and run the commands.
+</span><span>      </span><span style="font-style:italic;color:#ffb86c;">tasks </span><span style="background-color:#ff79c6;color:#f8f8f0;">=</span><span> </span><span style="font-style:italic;color:#ffb86c;">nix-tasks</span><span style="color:#ff79c6;">.</span><span style="font-style:italic;color:#ffb86c;">mkTasks </span><span>[ </span><span style="font-style:italic;color:#ffb86c;">setup test test-integration </span><span>];
+</span><span>}
+</span></code></pre>
+<p>Given the above useage of this not-yet-existent <code>nix-tasks</code> library, we could now <code>cd</code> into a directory
+and be dropped into a pre-configured development environment and simply run <code>nix-tasks</code> to get a list
+of common tasks.</p>
+<pre style="background-color:#282a36;color:#f8f8f2;"><code><span>$ nix-tasks
+</span><span>Usage: nix-tasks [task]
+</span><span>
+</span><span>Available Tasks:
+</span><span>  setup               setup the application and database
+</span><span>  test                run all unit tests for the project
+</span><span>  test-integration    run integration tests (depends on: setup)
+</span><span>  help                display this help text
+</span></code></pre>
+<p>Starting with something simple we could build things like flags and arguments, for running tasks such as
+<code>nix-tasks deploy --prod</code> or <code>nix-tasks deploy --staging</code> etc. The only advantage here is everything is
+defined in the <code>flake.nix</code> file, and that there is no additional task runner file in the repository root.</p>
+<p>Alternatively, <code>nix-tasks</code> can just be a compiler to create a <code>Justfile</code> or a <code>Makefile</code> and write that
+to the nix store. My idea was to write a separate tool that I can take some design liberties with and bake
+opinionated defaults into.</p>
+<h2 id="design">Design</h2>
+<p>There are two components to this:</p>
+<ul>
+<li><code>mkTasks</code>, the <code>nix</code> library</li>
+<li><code>nix-tasks</code>, a binary executable CLI tool</li>
+</ul>
+<p>Inside of a <code>flake.nix</code> users would include the <code>nix-tasks</code> <code>nix</code> library flake in inputs,
+and also add the <code>nix-tasks</code> executable in their devShell list of packages.</p>
+<p><code>mkTasks</code> will process the nix definitions into a <code>JSON</code> file and write it to the nix store.
+This file will be easier to work with from the task runner tool.</p>
+<p><code>nix-tasks</code> will read this <code>JSON</code> file and create a help text which will be the default entrypoint
+to the CLI. Each task has a command which if effectively just a bash script, and our CLI will execute
+that script in the current shell.</p>
+</div>
+  <footer class="post-footer">
+    
+    <ul class="post-tags">
+      
+      <li><a href="https://Borlaag.com/tags/nix/">nix</a></li>
+      
+    </ul>
+    
+  </footer>
+</article>
+
+    </main>
+
+    <footer class="footer">
+      <span>&copy; 2022 <a href="https://Borlaag.com">Børlaag</a></span>
+      <span>&middot;</span>
+      No data-collection or analytics
+      <span>&middot;</span>
+      <span><a href="/hello-world#licenses" rel="noopener" target="_blank">Refer to this post️ for license info</a></span>
+      <span></span>
+    </footer>
+    
+  </body>
+</html>

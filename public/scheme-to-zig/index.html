@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, nosnippet">
+    <link rel="icon" href="/images/favicon.svg">
+
+    <title>Børlaag &middot; Scheme to Zig</title>
+
+    <link rel="preload" href="/fonts/Inter.var.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/FiraCodeVariable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="https://Borlaag.com/main.css">
+  </head>
+
+  <body class="single">
+
+    
+    <header class="header">
+      <nav class="nav">
+        
+        <p class="logo"><a href="https://Borlaag.com">Børlaag</a></p>
+        
+        <ul class="menu">
+          
+          <li><a href="https:&#x2F;&#x2F;github.com&#x2F;Borlaag">GitHub</a></li>
+          
+          <li><a href="https:&#x2F;&#x2F;twitter.com&#x2F;Borlaag">Twitter</a></li>
+          
+          <li><a href="https:&#x2F;&#x2F;matrix.to&#x2F;#&#x2F;@borlaag:matrix.org">Matrix</a></li>
+          
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main">
+      
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">Scheme to Zig</h1>
+    <div class="post-meta">
+      <span class="post-date"><time>November  1, 2022</time></span>
+    </div>
+  </header>
+  <div class="post-content"><p>Some Scheme implementations use C as their compile target, yielding portability and performance.
+Re-reading the <a href="https://dl.acm.org/doi/10.1145/214448.214454">Cheney on the MTA</a> paper I thought,
+&quot;why not Zig?&quot;</p>
+<span id="continue-reading"></span>
+<p><strong>Note:</strong> There isn't anything beyond this post and
+<a href="https://twitter.com/Borlaag/status/1583555782976876545">this tweet</a>... yet :-) This is
+a big undertaking for me, and will likely remain a background project for me for a while.
+I'll try to post regular status updates as I work on this. Documenting implementation is
+a useful endeavor I think.</p>
+<h2 id="why">Why</h2>
+<p>There are lots of Scheme implementations and several mature implementations that target C.
+Implementing a Scheme seems fun (why else are there so many?), and given the ratified standards
+an implementor does not need to worry about language design and can for the most part just implement
+things from the spec.</p>
+<p>Beyond that, the goals of this project are to create a simple reference implementation, conform to the
+specification, and to experiment with a newer compile target. Although not a primary goal, it might also
+be interesting to have an extension language for Zig, similar to
+<a href="https://www.gnu.org/software/guile/">Guile</a> being an extension language for C and C++. I'm not sure
+how this would work (or if it could work at all) given that my implementation idea is not an
+interpreter/VM but a source-to-source compiler.</p>
+<p>I also want to learn Zig by taking on a substantial project. This is a substantial project.
+You can learn more about the merits of Zig in the <a href="https://ziglang.org/learn/overview/">in-depth overview</a>
+and the <a href="https://ziglang.org/learn/why_zig_rust_d_cpp/">Why Zig?</a> page.</p>
+<h2 id="design">Design</h2>
+<p>The idea is to implement <a href="https://small.r7rs.org/">R7RS-small</a> in the style described in the paper,
+and to target <a href="https://ziglang.org">Zig</a> instead of C. The
+<a href="https://small.r7rs.org/attachment/overview.pdf">overview</a> of R7RS is fairly easy to digest but the
+actual <a href="https://small.r7rs.org/attachment/r7rs.pdf">specification</a> is a solid 88 pages.</p>
+<p>Below is a higher-level visual overview of the compiler.</p>
+<p><img src="/images/compiler.svg" alt="" /></p>
+<p>The basic idea is we parse the Scheme source file(s) into Abstract Syntax Trees (AST) which is
+something we can now transform. The transformations can be both additive and subtractive.
+One such transformation necessary is known as
+<a href="https://en.wikipedia.org/wiki/Continuation-passing_style">Continuation Passing Style</a> (CPS for short).
+We take the resulting <a href="https://en.wikipedia.org/wiki/Lambda_calculus">lambda expressions</a> and compile
+them into individual Zig functions.</p>
+<p>The next step is to combine this into a Zig file that makes sense as a full program. We'd still be
+missing some things. For example, we need a garbage collector. We also want some boilerplate structure
+(or a template) for us to write these Zig functions into. This is the runtime and raw template,
+something like a <code>main.zig</code> with gaps in it that we fill with the Zig functions we compiled in the
+previous step. Putting this together, we can now call the Zig compiler and get an executable.</p>
+<p>As a first pass I wouldn't add any performance optimizations but there are many that can be applied
+directly to the AST so this design does make the project future-proof, if someone were to decide they
+wanted to improve the quality of the Zig code that is produced. As an aside, there's a framework called
+<a href="http://andykeep.com/pubs/dissertation.pdf">nanopass</a> where the idea is to make it very easy to make tiny
+modifications to the AST, and to make lots of them through the 'middle-end' compilation process. This is
+how the <a href="https://github.com/cisco/ChezScheme">chez scheme</a> compiler is implemented.</p>
+</div>
+  <footer class="post-footer">
+    
+    <ul class="post-tags">
+      
+      <li><a href="https://Borlaag.com/tags/zig/">zig</a></li>
+      
+      <li><a href="https://Borlaag.com/tags/scheme/">scheme</a></li>
+      
+      <li><a href="https://Borlaag.com/tags/pl/">pl</a></li>
+      
+      <li><a href="https://Borlaag.com/tags/compiler/">compiler</a></li>
+      
+    </ul>
+    
+  </footer>
+</article>
+
+    </main>
+
+    <footer class="footer">
+      <span>&copy; 2022 <a href="https://Borlaag.com">Børlaag</a></span>
+      <span>&middot;</span>
+      No data-collection or analytics
+      <span>&middot;</span>
+      <span><a href="/hello-world#licenses" rel="noopener" target="_blank">Refer to this post️ for license info</a></span>
+      <span></span>
+    </footer>
+    
+  </body>
+</html>
