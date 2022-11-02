@@ -8,5 +8,5 @@
 <footer class="entry-footer">
   <time>{{ page.date | date(format="%B %e, %Y") }}</time>
 </footer>
-<a class="entry-link" href="{{ page.permalink }}"></a>
+<a class="entry-link" href="{{ get_url(path=page.path, trailing_slash=false) }}"></a>
 {% endmacro page_in_list %}

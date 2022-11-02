@@ -5,7 +5,7 @@
     --main-width: 640px;
     --header-height: 60px;
     --footer-height: 60px;
-    --radius: 8px;
+    --radius: 5px;
 
     --theme: #fff;
     --entry: #2e293f05;
@@ -399,7 +399,7 @@ img {
     line-height: 1.5;
     border-radius: 2px;
     overflow-x: auto;
-    color: #ff1e1e;
+    font-weight: 400;
 }
 .post-content pre code {
     display: block;
@@ -409,7 +409,6 @@ img {
     border-radius: 0;
     margin: 0;
     margin-bottom: 40px;
-    color: #f8f8f2;
 }
 .post-content blockquote {
     margin: 0 0 0 calc(var(--gap) * -1);
