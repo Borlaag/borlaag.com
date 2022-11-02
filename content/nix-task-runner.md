@@ -43,7 +43,7 @@ what if we defined the tasks inside a `flake.nix` using `nix` (the language)?
         helpText = "run all unit tests for the project";
         command = "...";
       };
-      test-integration = {
+      testIntegration = {
         name = "test-integration";
         helpText = "run integration tests";
         command = "...";
@@ -52,11 +52,17 @@ what if we defined the tasks inside a `flake.nix` using `nix` (the language)?
         dependsOn = [ "setup" ];
       };
     in
+    {
       # mkTasks is the nix side of this story, it creates a file in
       # the nix store where each task is defined in a json file that
       # our task runner binary can parse to display the help text
       # and run the commands.
-      tasks = nix-tasks.mkTasks [ setup test test-integration ];
+      tasks = nix-tasks.mkTasks [
+        setup
+        test
+        testIntegration
+      ];
+    };
 }
 ```
 
