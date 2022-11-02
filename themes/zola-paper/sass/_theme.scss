@@ -8,7 +8,7 @@
     --radius: 5px;
 
     --theme: #fff;
-    --entry: #2e293f05;
+    --entry: #2e293f08;
     --primary: #2e293f;
     --secondary: #2e293fbd;
     --tertiary: rgba(0, 0, 0, 0.16);
@@ -43,11 +43,14 @@ aside,
 figcaption,
 figure,
 footer,
-header,
 hgroup,
 main,
 nav,
 section {
+    display: block;
+}
+header {
+    background: var(--entry);
     display: block;
 }
 h1,
