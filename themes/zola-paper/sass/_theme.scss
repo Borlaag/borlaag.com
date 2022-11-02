@@ -1,6 +1,6 @@
 :root {
     --gap: 24px;
-    --content-gap: 40px;
+    --content-gap: 20px;
     --nav-width: 1024px;
     --main-width: 640px;
     --header-height: 60px;
@@ -318,7 +318,7 @@ img {
 }
 .post-content ul,
 .post-content ol {
-    padding-left: 20px;
+    margin-inline-start: 2rem;
 }
 .post-content li {
     margin-top: 5px;
@@ -364,8 +364,6 @@ img {
 }
 .post-content .highlight,
 .post-content pre {
-    margin-left: calc(var(--gap) * -1);
-    margin-right: calc(var(--gap) * -1);
     border-radius: var(--radius);
 }
 .post-content ul pre {
@@ -395,9 +393,8 @@ img {
 .post-content .highlight span {
     background: transparent !important;
 }
-
 .post-content code {
-    font-family: 'Fira Code';
+    font-family: 'Fira Code', monospace;
     font-size: 0.8rem;
     line-height: 1.5;
     border-radius: 2px;
