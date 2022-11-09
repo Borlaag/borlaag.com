@@ -8,11 +8,11 @@
     --radius: 5px;
 
     --theme: #fff;
-    --entry: #3030300a;
-    --primary: #303030;
-    --secondary: #303030d1;
-    --tertiary: rgba(0, 0, 0, 0.16);
-    --content: rgba(0, 0, 0, 0.88);
+    --entry: rgb(0, 0, 0, 0.01);
+    --primary: rgba(0, 0, 0, 0.9);
+    --secondary: rgba(0, 0, 0, 0.75);
+    --tertiary: rgba(0, 0, 0, 0.25);
+    --content: rgba(0, 0, 0, 0.9);
 
     --hljs-bg: #ffffff;
     --code-bg: #ffffff;
@@ -71,7 +71,7 @@ p {
 }
 strong,
 b {
-    font-weight: 500;
+    font-weight: 600;
 }
 ul {
     margin: 0;
@@ -448,6 +448,9 @@ img {
     line-height: 34px;
     background: var(--code-bg);
     border-radius: 4px;
+}
+.tags-header {
+    margin-bottom: 20px;
 }
 .post-tags a:hover {
     background: var(--border);

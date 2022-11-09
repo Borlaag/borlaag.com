@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="posts">
-  <h2>Tag: {{ term.name }}</h2>
+  <h2 class="tags-header">Tag: {{ term.name }}</h2>
   {% if paginator is defined %}
   {% set pages = paginator.pages %}
   {% elif term is defined %}
