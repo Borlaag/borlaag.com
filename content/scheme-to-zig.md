@@ -3,7 +3,7 @@ title = "Scheme to Zig"
 date = 2022-11-01
 
 [taxonomies]
-tags = ["zig", "scheme", "pl", "compiler"]
+tags = ["zig", "scheme", "pl", "compiler", "lemon"]
 +++
 
 Some Scheme implementations use C as their compile target, yielding portability and performance.
