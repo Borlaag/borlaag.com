@@ -32,6 +32,7 @@ body {
     margin: 0;
     color: var(--primary);
     font-family: 'Mona Sans', system-ui, sans-serif;
+    font-feature-settings: "ss01";
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.8;
@@ -59,6 +60,7 @@ h4,
 h5,
 h6 {
     font-family: 'Hubot Sans', system-ui, sans-serif;
+    font-feature-settings: "ss01";
     margin-top: 0;
     margin-bottom: 0;
     color: var(--primary);
@@ -137,6 +139,7 @@ img {
 }
 .logo a {
     font-family: 'Hubot Sans', system-ui, sans-serif;
+    font-feature-settings: "ss01";
     font-size: 2rem;
     font-weight: 600;
 }
@@ -151,6 +154,7 @@ img {
 }
 .menu a {
     font-family: 'Hubot Sans', system-ui, sans-serif;
+    font-feature-settings: "ss01";
     font-size: 16px;
     font-weight: 600;
 }
