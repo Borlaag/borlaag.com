@@ -9,7 +9,7 @@
 
     --theme: #fff;
     --entry: rgb(0, 0, 0, 0.01);
-    --primary: rgba(0, 0, 0, 0.75);
+    --primary: rgba(0, 0, 0, 0.9);
     --secondary: rgba(0, 0, 0, 0.75);
     --tertiary: rgba(0, 0, 0, 0.25);
     --content: rgba(0, 0, 0, 0.9);
@@ -52,7 +52,6 @@ section {
 .header {
     background: var(--entry);
     display: block;
-    border-bottom: 1px solid var(--primary);
 }
 h1,
 h2,
@@ -227,7 +226,6 @@ img {
     background: var(--entry);
     border-radius: var(--radius);
     transition: transform 0.1s;
-    border: 1px solid var(--primary);
 }
 .post-entry:active {
     transform: scale(0.96);
