@@ -430,9 +430,9 @@ img {
     color: unset;
 }
 .post-content blockquote {
-    margin: 0 0 0 calc(var(--gap) * -1);
+    margin: 0 0 0 0;
     padding: 0 0 0 21px;
-    border-left: 3px solid var(--primary);
+    border-left: 2px solid var(--primary);
 }
 .post-content hr {
     height: 1px;
