@@ -230,8 +230,8 @@ img {
     border-radius: var(--radius);
     transition: transform 0.1s;
 }
-.post-entry:active {
-    transform: scale(0.96);
+.post-entry:hover {
+    transform: scale(1.1);
 }
 .tag-entry .entry-content,
 .tag-entry .entry-footer {
