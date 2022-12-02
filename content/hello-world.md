@@ -12,7 +12,7 @@ and code licenses.
 My goals with this blog are fairly unstructured, but mostly I want a place to put my thoughts
 and designs on primarily software related stuff.
 
-## Stack
+## Stuff Used
 
 This blog is a static site generated using [Zola](https://www.getzola.org/), a static website
 generator written in Rust. I'm using a slightly modified version of the
