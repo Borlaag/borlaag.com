@@ -1,0 +1,73 @@
+{% import "post_macros.html" as post_macros %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, nosnippet">
+    <link rel="icon" href="{{ get_url(path="/images/favicon.svg", trailing_slash=false) }}">
+
+    <title>{% if page.title %}{{ config.title }} &middot; {{ page.title }}{% else %}{{ config.title }}{% endif %}</title>
+
+    <link rel="preload" href="{{ get_url(path="/fonts/Hubot-Sans.woff2", trailing_slash=false) }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ get_url(path="/fonts/Mona-Sans.woff2", trailing_slash=false) }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ get_url(path="/fonts/FiraCodeVariable.woff2", trailing_slash=false) }}" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="{{ get_url(path="main.css", trailing_slash=false) }}">
+  </head>
+
+  {% if page %}<body class="single">{% else %}<body class="list">{% endif %}
+
+    {% block body %}
+    <header class="header">
+      <nav class="nav">
+        {% if page %}
+        <p class="logo"><a href="{{ get_url(path="", trailing_slash=false ) }}">{{ config.title }}</a></p>
+        {% else %}
+        <h1 class="logo"><a href="{{ get_url(path="", trailing_slash=false ) }}">{{ config.title }}</a></h1>
+        {% endif %}
+        <ul class="menu">
+          {% block sidebar_nav %}{% for link in config.extra.links %}
+          <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+          {% endfor %}{% endblock sidebar_nav %}
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main">
+      <article class="post-single">
+        <header class="post-header">
+          <h1 class="post-title">Post Archive</h1>
+        </header>
+        <div class="post-content">
+          {% set parent = get_section(path="_index.md") %}
+          {% for year, posts in parent.pages | group_by(attribute="year") %}
+          <h2>{{ year }}</h2>
+          <table>
+            {% for post in posts %}
+              <tr>
+                <td class="archive-post-date">{{ post.date }}</td>
+                <td>
+                  <a class="archive-post-link" href="{{ post.permalink }}">
+                    {{ post.title }}
+                  </a>
+                </td>
+              </tr>
+            {% endfor %}
+          </table>
+          {% endfor %}
+        </div>
+      </article>
+    </main>
+
+    <footer class="footer">
+      <span>&copy; {{ now() | date(format="%Y") }} <a href="{{ get_url(path="", trailing_slash=false ) }}">{{ config.title }}</a></span>
+      <span>&middot;</span>
+      No data-collection or analytics
+      <span>&middot;</span>
+      <span><a href="{{ get_url(path="/hello-world#licenses", trailing_slash=false) }}" rel="noopener" target="_blank">Refer to this post️ for license info</a></span>
+      <span></span>
+    </footer>
+    {% endblock body %}
+  </body>
+</html>

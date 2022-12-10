@@ -320,6 +320,13 @@ img {
     margin-right: 0;
     border-radius: 0;
 }
+.archive-post-date {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+}
+a.archive-post-link {
+    box-shadow: none;
+}
 .post-content del {
     text-decoration: none;
     background: linear-gradient(to right, var(--primary) 100%, transparent 0) 0 50% / 1px 1px repeat-x;
@@ -361,16 +368,11 @@ img {
 .post-content table {
     margin-bottom: 32px;
 }
-.post-content table th,
-.post-content table:not(.highlighttable) td {
-    min-width: 80px;
-    padding: 12px 8px;
-    line-height: 1.5;
-    border-bottom: 1px solid var(--border);
+.post-content tbody {
+    display: block;
 }
-.post-content table th {
-    font-size: 14px;
-    text-align: left;
+.post-content td {
+    min-width: 120px;
 }
 .post-content table:not(.highlighttable) td code:only-child {
     margin-left: 0;
