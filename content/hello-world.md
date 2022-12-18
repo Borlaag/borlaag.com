@@ -15,11 +15,10 @@ and designs on primarily software related stuff.
 ## Stuff Used
 
 This blog is a static site generated using [Zola](https://www.getzola.org/), a static website
-generator written in Rust. I'm using a slightly modified version of the
-[zola-paper](https://github.com/schoenenberg/zola-paper) theme.
+generator written in Rust. I'm using a modified version of the [zola-paper](https://github.com/schoenenberg/zola-paper) theme.
 
-Some of the modifications include subtle colors customizations and ~~the use of the
-[Inter](https://rsms.me/inter/) font~~ [GitHub Mona & Hubot Sans](https://github.com/mona-sans) for text and [Fira Code](https://github.com/tonsky/FiraCode) for code.
+Some of the modifications include color customizations and font changes. I'm using the [GitHub Mona & Hubot Sans](https://github.com/mona-sans) 
+fonts for text and [JetBrains Mono](https://www.jetbrains.com/lp/mono/) font for code.
 
 The website is currently deployed to [Netlify](https://www.netlify.com/), though I plan to self-host
 once I get my server up and running. I'll likely write a separate post about that in the near future.
