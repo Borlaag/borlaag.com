@@ -320,7 +320,7 @@ img {
     border-radius: 0;
 }
 .archive-post-date {
-    font-family: 'Fira Code', monospace;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 0.9rem;
 }
 a.archive-post-link {
@@ -409,12 +409,12 @@ a.archive-post-link {
     background: transparent !important;
 }
 .post-content code {
-    font-family: 'Fira Code', monospace;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 0.9rem;
     line-height: 1.2rem;
     border-radius: 2px;
     overflow-x: auto;
-    font-weight: 300;
+    font-weight: 400;
     padding: .25em .5em .25em;
     background-color: var(--inline-code-bg);
     color: var(--inline-code);
