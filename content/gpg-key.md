@@ -3,7 +3,7 @@ title = "GPG Key"
 date = 2022-12-29
 +++
 
-Publicizing my GPG key (15F3 35C8 6BC7 3B54 FD3E  E5DE 9C7A E751 869E 6A22).
+Publicizing my GPG key (`15F3 35C8 6BC7 3B54 FD3E  E5DE 9C7A E751 869E 6A22`).
 
 <!-- more -->
 
@@ -24,6 +24,10 @@ q8rFJLQ+vt/UDGOTYpECoXOfR1br5EsbBg==
 =MiDM
 -----END PGP PUBLIC KEY BLOCK-----
 ```
+
+## Plaintext
+
+[https://borlaag.com/gpg.txt](https://borlaag.com/gpg.txt)
 
 ## CLI friendly
 
