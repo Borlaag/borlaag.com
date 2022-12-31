@@ -35,8 +35,8 @@ q8rFJLQ+vt/UDGOTYpECoXOfR1br5EsbBg==
 
 ## Plaintext
 
-[https://borlaag.com/pgp.txt](https://borlaag.com/pgp.txt). If you're working in a terminal,
-feel free to `curl` my key directly.
+If you're working in a terminal, feel free to `curl` my key directly. I keep
+a static `pgp.txt` file with my public key on this site ([https://borlaag.com/pgp.txt](https://borlaag.com/pgp.txt)).
 
 ```
 curl -L https://borlaag.com/pgp.txt
