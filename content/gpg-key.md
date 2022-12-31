@@ -1,11 +1,19 @@
 +++
-title = "GPG Key"
-date = 2022-12-29
+title = "PGP Key"
+date = 2022-12-30
 +++
 
-Publicizing my GPG key (`15F3 35C8 6BC7 3B54 FD3E  E5DE 9C7A E751 869E 6A22`).
+Use strong cryptography! This post is publicizing my primary PGP key (`0x9C7AE751869E6A22`).
 
 <!-- more -->
+
+```
+λ gpg --keyid-format 0xlong --fingerprint borlaag@proton.me
+pub   ed25519/0x9C7AE751869E6A22 2022-12-30 [SC]
+      Key fingerprint = 15F3 35C8 6BC7 3B54 FD3E  E5DE 9C7A E751 869E 6A22
+uid                   [ultimate] Børlaag <borlaag@proton.me>
+sub   cv25519/0xE702275C26B1BBD4 2022-12-30 [E]
+```
 
 ## Public Key
 
@@ -27,10 +35,9 @@ q8rFJLQ+vt/UDGOTYpECoXOfR1br5EsbBg==
 
 ## Plaintext
 
-[https://borlaag.com/gpg.txt](https://borlaag.com/gpg.txt)
-
-## CLI friendly
+[https://borlaag.com/pgp.txt](https://borlaag.com/pgp.txt). If you're working in a terminal,
+feel free to `curl` my key directly.
 
 ```
-curl -L https://borlaag.com/gpg.txt
+curl -L https://borlaag.com/pgp.txt
 ```
